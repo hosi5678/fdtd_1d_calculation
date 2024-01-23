@@ -20,7 +20,7 @@ set(excitation_mode "gaussian" CACHE STRING "Excitation mode: gaussian or sin")
 # set(excitation_mode "sin" CACHE STRING "Excitation mode: gaussian or sin")
 
 # angular Frequency Number を設定
-set(angular_frequency_num "114" CACHE INTERNAL "angular frequency number")
+set(angular_frequency_num "455" CACHE INTERNAL "angular frequency number")
 
 
 # excitation_mode に応じてサブディレクトリと実行ファイルを追加

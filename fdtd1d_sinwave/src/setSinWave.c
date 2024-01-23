@@ -5,11 +5,13 @@
 
 #include "../../common_files/include/common_parameter.h"
 #include "../../common_files/include/checkAlloc1DDouble.h"
-#include "../../common_files/include/setSinWave.h"
 #include "../../common_files/include/set1DDoubleCSV_Column.h"
 #include "../../common_files/include/getFilePath.h"
 #include "../../common_files/include/fft.h"
 #include "../../common_files/include/getPeak.h"
+
+#include "../include/setSinWave.h"
+
 
 double *setSinWave(int angular_frequency_num,int length){
 

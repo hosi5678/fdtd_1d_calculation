@@ -9,6 +9,7 @@
 
 // 定数の設定
 #include "./common_files/include/common_parameter.h"
+#include "./common_files/include/get_dt.h"
 #include "./common_files/include/init2DdoublePlane.h"
 #include "./common_files/include/getFilePath.h"
 #include "./common_files/include/setSinWave.h"
@@ -27,7 +28,7 @@ int main(int argc,char **argv) {
 
     start_clock = clock();
 
-    double dt=(dx/(sqrt(dimension)*light_speed))*time_margin;
+    double dt=get_dt();
 
     printf("argc=%d,argv=%s\n",argc,argv[1]);
 
@@ -49,13 +50,18 @@ int main(int argc,char **argv) {
     // wave initialize
     exciteWave=setSinWave(angular_frequency_num,calculation_timestep);
 
+    double ey_max=0.0;
+    double ey_min=0.0;
+
     // 1 dimensional fdtd calculation
     ety_const_2d_plane=set1DEyHz_half_calc(
         cells,
         calculation_timestep,
         exciteWave,
         excite_point,
-        dt
+        dt,
+        &ey_max,
+        &ey_min
     );
 
     file_name=getFilePath(csv_dir,"eyt_plane_2d",csv_extension);

@@ -9,6 +9,7 @@
 
 // 定数の設定
 #include "./common_files/include/common_parameter.h"
+#include "./common_files/include/get_dt.h"
 #include "./common_files/include/checkAlloc1DDouble.h"
 #include "./common_files/include/getFilePath.h"
 #include "./common_files/include/setGaussianWave.h"
@@ -32,7 +33,7 @@ int main(void) {
 
     start_clock = clock();
 
-    double dt =(dx/(sqrt(dimension)*light_speed))*time_margin;
+    double dt =get_dt();
 
     double const *const *ety_const_2d_plane;
     double *exciteWave;

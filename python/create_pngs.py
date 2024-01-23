@@ -35,7 +35,10 @@ print("ey_min="+str(df.iloc[1].min()))
 max=df.iloc[0].max()
 min=df.iloc[1].min()
 
-timestep = int(input("input timestep number."))
+max=0.00008801520572440292*1.1
+min=-max
+
+timestep = int(input("input timestep number(>0)."))
 
 for i in range(timestep):
     

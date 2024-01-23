@@ -10,7 +10,7 @@
 
 #include "../../common_files/include/common_parameter.h"
 #include "../../common_files/include/getPeak.h"
-#include "../../common_files/include/memo_sinwave.h"
+#include "../include/memo_sinwave.h"
 
 void memo_sinwave(int angular_frequency_num){
 
