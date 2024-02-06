@@ -32,11 +32,8 @@ print("ey_max="+str(df.iloc[0].max()))
 print("ey_min="+str(df.iloc[1].min()))
 
 # 最大値、最小値の取得
-max=df.iloc[0].max()
-min=df.iloc[1].min()
-
-max=0.00008801520572440292*1.1
-min=-max
+max=df.iloc[0].max()*0.1
+min=df.iloc[1].min()*0.1
 
 timestep = int(input("input timestep number(>0)."))
 

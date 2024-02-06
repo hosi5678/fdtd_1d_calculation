@@ -25,7 +25,7 @@
 #define pml_layer_number 50
 
 // ey成分をfftするときのデータの長さを2のべき乗にする
-#define fft_length 256
+#define fft_length 16384
 
 // Yeeセルの個数
 #define cells 55

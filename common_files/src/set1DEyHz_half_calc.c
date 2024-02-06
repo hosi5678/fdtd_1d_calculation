@@ -87,11 +87,12 @@ const double **set1DEyHz_half_calc(
         // symmetryCheck(ey,x_length,time);
         // antisymmetryCheck(hz,x_length-1,time);
 
+
         set_vec_timestep_csv(
             "./ey_timestep_csvs/",
             "ey_timestep_",
             ey,
-            sizeof(ey)/sizeof(ey[0]),
+            x_length,
             time
         );
 
