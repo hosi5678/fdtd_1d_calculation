@@ -1,4 +1,4 @@
-# Install script for directory: /home/user/bak_1d_air/common_files
+# Install script for directory: /home/user/1d/bak_1d_air/common_files
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -12,7 +12,6 @@
 
 #include "../include/setSinWave.h"
 
-
 double *setSinWave(int angular_frequency_num,int length){
 
 	double *wave;

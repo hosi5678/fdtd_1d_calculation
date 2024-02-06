@@ -93,7 +93,6 @@ fi
 cd ..
 
 tree > tree.txt
-cp -r "../project/ ../Dropbox/c/project/"
 
 # CMakeLists.txtでgaussianとsinの切り替えを行うので、./build/を一旦削除する
 
