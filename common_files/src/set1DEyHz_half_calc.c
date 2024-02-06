@@ -60,7 +60,7 @@ const double **set1DEyHz_half_calc(
 
         // 励起点にgaussian波形を与える
         int x=excite_point;
-        ey[x]-=-coef3[x]*src_J[time];
+        ey[x]-=coef3[x]*src_J[time];
 
         // 励起点で左右対称なので、左側を右側にコピーする。
         for (int x = excite_point+1 ; x < x_length-1 ; x++ ) {
