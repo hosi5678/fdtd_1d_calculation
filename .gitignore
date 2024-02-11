@@ -15,5 +15,9 @@
 *.txt
 *.json
 *.csv
+*.o
+*.a
+*.d
+*.log
 
 !CMakeLists.txt
