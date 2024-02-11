@@ -17,13 +17,15 @@
 #include "../include/set_vec_timestep_csv.h"
 #include "../include/set1DEyHz_half_calc.h"
 
-const double **set1DEyHz_half_calc(
+const double *set1DEyHz_half_calc(
     int x_length,
     int time_length,
     double *src_J,
     int excite_point,
     double *ey_max,
-    double *ey_min
+    double *ey_min,
+    double *hz_max,
+    double *hz_min
 ) {
 
     double *sigma,*eps;
@@ -47,9 +49,11 @@ const double **set1DEyHz_half_calc(
 
     double coef4=dt/(u0*dx);
 
-    double **ety_2d_plane;
+    double **ey_t_plane=init2DdoublePlane(time_length,x_length);
 
-    ety_2d_plane=init2DdoublePlane(time_length,x_length);
+    double **hz_t_plane=init2DdoublePlane(time_length,x_length-1);
+
+    double *ey_t=checkAlloc1DDouble("ey_t alloc.",time_length);
 
     for (int time=0; time < time_length; time++) {
 
@@ -79,14 +83,17 @@ const double **set1DEyHz_half_calc(
 
         // eyの最大値、最小値を求める
         for(int x=0;x<x_length;x++){
-            ety_2d_plane[time][x]=ey[x];
-            if(ey[x]>*ey_max) *ey_max=ey[x];
-            if(*ey_min>ey[x]) *ey_min=ey[x];
+            ey_t_plane[time][x]=ey[x];
         }
+
+        for(int x=0;x<x_length-1;x++) {
+            hz_t_plane[time][x]=hz[x];
+        }
+
+        ey_t[time]=ey[x];
 
         // symmetryCheck(ey,x_length,time);
         // antisymmetryCheck(hz,x_length-1,time);
-
 
         set_vec_timestep_csv(
             "./ey_timestep_csvs/",
@@ -96,20 +103,58 @@ const double **set1DEyHz_half_calc(
             time
         );
 
+        set_vec_timestep_csv(
+            "./hz_timestep_csvs/",
+            "hz_timestep_",
+            hz,
+            x_length-1,
+            time
+        );
+
+
+
     } // time-loop
+
+    // timestep数 600までのey,hzの値の最大値、最小値を求める。
+
+    for(int time=0;time<600;time++){
+        // 電界成分
+        for(int x=0;x<x_length;x++){
+            if(ey_t_plane[time][x]>*ey_max) *ey_max=ey_t_plane[time][x];
+            if(*ey_min>ey_t_plane[time][x]) *ey_min=ey_t_plane[time][x];
+        }
+        // 磁界成分
+        for(int x=0;x<x_length-1;x++){
+            if(hz_t_plane[time][x]>*hz_max) *hz_max=hz_t_plane[time][x];
+            if(*hz_min>hz_t_plane[time][x]) *hz_min=hz_t_plane[time][x];
+        }
+
+    }
 
     // pythonのheatmapに出力したいので、1.1倍にして表示する。
     printf("(ey max)(x1.1)  ey max=%.15f\n",*ey_max*1.1);
     printf("(ey min)(x1.1)  ey min=%.15f\n",*ey_min*1.1);
 
+    printf("(hz max)(x1.1)  hz max=%.15f\n",*hz_max*1.1);
+    printf("(hz min)(x1.1)  hz min=%.15f\n",*hz_min*1.1);
+
+
     double *ey_range=checkAlloc1DDouble("in ey range.",2);
     ey_range[0]=*ey_max*1.1;
     ey_range[1]=*ey_min*1.1;
+
+    double *hz_range=checkAlloc1DDouble("in hz range.",2);
+    hz_range[0]=*hz_max*1.1;
+    hz_range[1]=*hz_min*1.1;
 
     char *file_path;
     file_path=getFilePath(csv_dir,"ey_range",csv_extension);
 
     set1DDoubleCSV_Column(ey_range,file_path,2);
+
+    file_path=getFilePath(csv_dir,"hz_range",csv_extension);
+
+    set1DDoubleCSV_Column(hz_range,file_path,2);
 
     free(eps);
     free(sigma);
@@ -120,7 +165,8 @@ const double **set1DEyHz_half_calc(
     free(ey);
 
     free(ey_range);
+    free(hz_range);
 
-    return (const double **)ety_2d_plane;
+    return (const double *)ey_t;
 
 }

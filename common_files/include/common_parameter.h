@@ -31,7 +31,7 @@
 #define cells 55
 
 // gaussian pulseのpeak の時間軸上の位置
-#define gaussianPeaktimePosition 64
+#define gaussianPeaktimePosition 16
 
 // gaussian pulseの半値幅を設定する係数。小さいほど幅が狭い
 #define gaussian_alpha 0.05

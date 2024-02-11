@@ -28,8 +28,6 @@ int main(void) {
 
     start_clock = clock();
 
-    // double dt =get_dt();
-
     double *exciteWave;
 
     char *file_name;
@@ -52,28 +50,25 @@ int main(void) {
     // 励起波形をgaussian pulseに設定
     exciteWave=setGaussianWave(calculation_timestep);
 
-    // fdtdの計算でey成分の最大値、最小値を求める
+    // fdtdの計算でey,hz成分の最大値、最小値を求める
     double ey_max=0.0;
     double ey_min=0.0;
 
-    // 1 dimensional fdtd calculation
-    const double **ey_t_plane;
+    double hz_max=0.0;
+    double hz_min=0.0;
 
-    ey_t_plane=set1DEyHz_half_calc(
+    // 1 dimensional fdtd calculation
+    const double *ey_t;
+
+    ey_t=set1DEyHz_half_calc(
        cells,
        calculation_timestep,
        exciteWave,
        excite_point,
        &ey_max,
-       &ey_min
-    );
-
-    set2DVecCSV(
-        "./csv_files/",
-        "ey_t_plane.csv",
-        ey_t_plane,
-        cells,
-        fft_timestep_end
+       &ey_min,
+       &hz_max,
+       &hz_min
     );
 
     // fft calculation , array allocation
@@ -82,12 +77,8 @@ int main(void) {
     // 得られたeyの波形から2のべき乗個を採取する。
     for(int time=fft_timestep_start;time<fft_timestep_start+fft_length;time++){
 
-        for(int x=0;x<cells;x++){
-            if(x==excite_point){
-                fft_array[time-fft_timestep_start]=ey_t_plane[time][x];
-            }
+        fft_array[time-fft_timestep_start]=ey_t[time];
 
-        }
     }
 
     // fftの処理
