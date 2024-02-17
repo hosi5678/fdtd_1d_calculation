@@ -4,7 +4,7 @@
 find ./ -type f -name "*.csv" -delete
 find ./ -type f -name "*.mp4" -delete
 
-directory="./csv_files"
+directory="./csv_files/"
 
 if [ -d "$directory" ]; then
    echo "direcory:" "$directory found"
