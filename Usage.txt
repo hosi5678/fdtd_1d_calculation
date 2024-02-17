@@ -1,0 +1,19 @@
+使い方(Usage)
+
+(1) gaussian波形を入力する
+1.  main_1d_gaussian.c , main_1d_sinwave.cと同層のCMakeLists.txtを開く
+2.  18行目付近のset(excitation_mode "gaussian" CACHE STRING "Excitation mode: gaussian or sin")
+    で"gaussian"を記述する。
+3.  ./run.shとする。
+4.  共振周波数の番号fnoを得る
+
+(2) sin波形を入力する
+1. (1) 1.と同じCMakeLists.txtを開く
+2. 2.  18行目付近のset(excitation_mode "gaussian" CACHE STRING "Excitation mode: gaussian or sin")
+    で"sin"を記述する。
+3. ./run.shとする。
+4. ey_timestep_00000.csv、hz_timestep_000000.csv等を得る。
+
+(3) 動画を生成する。
+1. path_to_python ./python/create_png.pyを実行する。
+2. ./mp4/output.mp4を得る。

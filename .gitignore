@@ -21,3 +21,4 @@
 *.log
 
 !CMakeLists.txt
+!Usage.txt
