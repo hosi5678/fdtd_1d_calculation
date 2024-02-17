@@ -19,6 +19,10 @@
 *.a
 *.d
 *.log
+*.ninja_deps
+*.ninja_log
+*.ninja
+*.yaml
 
 !CMakeLists.txt
 !Usage.txt
